@@ -1,18 +1,22 @@
-import model.Status;
+package model;
 
 import java.util.Objects;
 
 public class Task {
-    String name;
-    String description;
-    int id;
-    Status status;
+    protected String name;
+    protected String description;
+    protected int id;
+    protected Status status;
 
-    public Task(String name, String description, int id, Status status) {
-        this.name = name;
-        this.description = description;
-        this.id = id;
-        this.status = status;
+    public Task() {
+    }
+
+    public Task(Task otherTask) {
+        this.id = otherTask.id;
+        this.name = otherTask.name;
+        this.description = otherTask.description;
+        this.status = otherTask.status;
+
     }
 
     @Override
@@ -55,6 +59,10 @@ public class Task {
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Status getStatus() {
