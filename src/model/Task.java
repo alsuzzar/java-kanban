@@ -1,3 +1,5 @@
+import model.Status;
+
 import java.util.Objects;
 
 public class Task {
