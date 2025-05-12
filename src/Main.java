@@ -61,45 +61,26 @@ public static void runTest() {
     printTasks(manager);
 
 
-    Task updatedTask = new Task();
-    updatedTask.setName("Затопить печь");
-    updatedTask.setDescription("Подкинуть дров и зажечь");
-    updatedTask.setStatus(Status.DONE);
-    updateTaskById(manager, updatedTask, 1);
+    task.setStatus(Status.DONE);
+    updateTaskById(manager, task);
 
-    Task updatedTask2 = new Task();
-    updatedTask2.setName("Наколоть дров");
-    updatedTask2.setDescription("В лесу");
-    updatedTask2.setStatus(Status.DONE);
-    updateTaskById(manager, updatedTask2, 2);
+    task2.setStatus(Status.DONE);
+    updateTaskById(manager, task2);
 
-    Subtask updatedSubtask = new Subtask();
-    updatedSubtask.setName("Поставить тесто");
-    updatedSubtask.setDescription("См. рецепт");
-    updatedSubtask.setStatus(Status.DONE);
-    updatedSubtask.setEpicId(epic.getId());
-    updateSubtaskById(manager, updatedSubtask, 4);
+    subtask.setStatus(Status.DONE);
+    updateSubtaskById(manager, subtask);
 
+    subtask2.setStatus(Status.DONE);
+    updateSubtaskById(manager, subtask2);
 
-    Subtask updatedSubtask2 = new Subtask();
-    updatedSubtask2.setName("Приготовить начинку");
-    updatedSubtask2.setDescription("См. рецепт начинки");
-    updatedSubtask2.setStatus(Status.DONE);
-    updatedSubtask2.setEpicId(epic.getId());
-    updateSubtaskById(manager, updatedSubtask2, 5);
-
-    Subtask updatedSubtask3 = new Subtask();
-    updatedSubtask3.setName("Разобрать значала чистую");
-    updatedSubtask3.setDescription("попросить дочь");
-    updatedSubtask3.setStatus(Status.IN_PROGRESS);
-    updatedSubtask3.setEpicId(epic2.getId());
-    updateSubtaskById(manager, updatedSubtask3, 7);
+    subtask3.setStatus(Status.IN_PROGRESS);
+    updateSubtaskById(manager, subtask3);
 
     printTasks(manager);
     System.out.println("\nПодзадачи для эпика 3: " + getAllSubtasksByEpic(manager,3));
     deleteTaskById(manager,1);
     System.out.println("\nУдалена задача с ID: 1");
-    deleteTaskById(manager,3);
+    deleteEpicById(manager,3);
     System.out.println("\nУдален эпик с ID: 3");
     printTasks(manager);
 }
@@ -112,7 +93,7 @@ public static void runTest() {
     public static Epic createEpic(TaskManager manager, Epic epic) {
         Epic newEpic = manager.createEpic(epic);
         System.out.println("\nЭпик создан с id: " + newEpic.getId());
-        return epic;
+        return newEpic;
     }
 
     public static void createSubtask(TaskManager manager, Subtask subtask) {
@@ -121,19 +102,16 @@ public static void runTest() {
                 newSubtask.getEpicId());
     }
 
-    public static void updateTaskById(TaskManager manager, Task task, int id) {
-        task.setId(id);
-        manager.updateTaskById(id, task);
+    public static void updateTaskById(TaskManager manager, Task task) {
+        manager.updateTaskById(task);
     }
 
-    public static void updateEpicById(TaskManager manager, Epic epic, int id) {
-        epic.setId(id);
-        manager.updateEpicById(id, epic);
+    public static void updateEpicById(TaskManager manager, Epic epic) {
+        manager.updateEpicById(epic);
     }
 
-    public static void updateSubtaskById(TaskManager manager, Subtask subtask, int id) {
-        subtask.setId(id);
-        manager.updateSubtaskById(id, subtask);
+    public static void updateSubtaskById(TaskManager manager, Subtask subtask) {
+        manager.updateSubtaskById(subtask);
     }
 
     public static ArrayList<Subtask> getAllSubtasksByEpic(TaskManager manager, int epicId) {
@@ -144,9 +122,26 @@ public static void runTest() {
         manager.deleteTaskById(id);
     }
 
+    public static void deleteEpicById(TaskManager manager,int id) {
+        manager.deleteEpicById(id);
+    }
+
+    public static void deleteSubtaskById(TaskManager manager,int id) {
+        manager.deleteSubtaskById(id);
+    }
+
     public static void deleteAllTasks(TaskManager manager) {
         manager.deleteAllTasks();
     }
+
+    public static void deleteAllEpics(TaskManager manager) {
+        manager.deleteAllEpics();
+    }
+
+    public static void deleteAllSubtasks(TaskManager manager) {
+        manager.deleteAllSubtasks();
+    }
+
 
     public static void printTasks(TaskManager manager) {
         System.out.println("Список дел: ");
@@ -156,7 +151,7 @@ public static void runTest() {
             System.out.println("Эпик" + epic + "\nПодзадачи: ");
             ArrayList<Integer> subtaskIds = epic.getSubtaskIds();
             for (int subtaskId : subtaskIds) {
-                Task subtask = manager.getTaskById(subtaskId);
+                Subtask subtask = manager.getSubtaskById(subtaskId);
                 if (subtask != null) {
                     System.out.println(subtask);
                 }

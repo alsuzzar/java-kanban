@@ -6,6 +6,7 @@ public class Epic extends Task {
 
     public Epic() {
         super();
+        this.subtaskIds = new ArrayList<>();
     }
 
     public Epic(Epic otherEpic) {
@@ -13,7 +14,7 @@ public class Epic extends Task {
         this.name = otherEpic.name;
         this.description = otherEpic.description;
         this.status = otherEpic.status;
-        this.subtaskIds = otherEpic.subtaskIds;
+        this.subtaskIds = new ArrayList<>(otherEpic.subtaskIds);
     }
 
     public ArrayList<Integer> getSubtaskIds() {
