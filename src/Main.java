@@ -1,3 +1,4 @@
+import manager.InMemoryTaskManager;
 import manager.TaskManager;
 import model.Epic;
 import model.Status;
@@ -11,7 +12,7 @@ public class Main {
 }
 
 public static void runTest() {
-    TaskManager manager = new TaskManager();
+    TaskManager manager = new InMemoryTaskManager();
 
     Task task = new Task();
     task.setName("Затопить печь");
