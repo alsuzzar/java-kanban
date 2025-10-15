@@ -4,8 +4,8 @@ import model.Epic;
 import model.Status;
 import model.Subtask;
 import model.Task;
-
 import java.util.ArrayList;
+
 public class Main {
     public static void main(String[] args) {
     runTest();
