@@ -1,7 +1,6 @@
 package model;
 
-public enum Status
-{
+public enum Status {
     NEW,
     DONE,
     IN_PROGRESS,

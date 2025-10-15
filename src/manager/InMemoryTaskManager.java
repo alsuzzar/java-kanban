@@ -10,8 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class InMemoryTaskManager implements TaskManager
-{
+public class InMemoryTaskManager implements TaskManager {
     private HashMap<Integer, Task> allTasks = new HashMap<>();
     private HashMap<Integer, Epic> allEpics = new HashMap<>();
     private HashMap<Integer, Subtask> allSubtasks = new HashMap<>();

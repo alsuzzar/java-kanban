@@ -7,8 +7,7 @@ import model.Task;
 import java.util.ArrayList;
 import java.util.List;
 
-public interface TaskManager
-{
+public interface TaskManager {
 
     Task createTaskWithManualId(Task task);
 

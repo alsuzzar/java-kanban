@@ -4,8 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class EpicTest
-{
+class EpicTest {
 
     @Test
     void shouldBeEqualIfAllFieldsAreEqual()

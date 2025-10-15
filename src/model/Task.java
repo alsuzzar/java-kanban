@@ -2,8 +2,7 @@ package model;
 
 import java.util.Objects;
 
-public class Task
-{
+public class Task {
     protected String name;
     protected String description;
     protected int id;

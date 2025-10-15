@@ -14,8 +14,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class InMemoryTaskManagerTest
-{
+class InMemoryTaskManagerTest {
 
     Task task;
     Subtask subtask;
