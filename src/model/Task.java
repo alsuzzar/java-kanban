@@ -8,12 +8,10 @@ public class Task {
     protected int id;
     protected Status status;
 
-    public Task()
-    {
+    public Task() {
     }
 
-    public Task(Task otherTask)
-    {
+    public Task(Task otherTask) {
         this.id = otherTask.id;
         this.name = otherTask.name;
         this.description = otherTask.description;
@@ -22,8 +20,7 @@ public class Task {
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "\nTask{ " +
                 "name= '" + name + '\'' +
                 ", description= '" + description + '\'' +
@@ -33,8 +30,7 @@ public class Task {
     }
 
     @Override
-    public boolean equals(Object o)
-    {
+    public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass())
             return false;
         Task task = (Task) o;
@@ -43,48 +39,39 @@ public class Task {
     }
 
     @Override
-    public int hashCode()
-    {
+    public int hashCode() {
         return Objects.hash(name, description, id, status);
     }
 
-    public String getName()
-    {
+    public String getName() {
         return name;
     }
 
-    public void setName(String name)
-    {
+    public void setName(String name) {
         this.name = name;
     }
 
-    public String getDescription()
-    {
+    public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description)
-    {
+    public void setDescription(String description) {
         this.description = description;
     }
 
-    public int getId()
-    {
+    public int getId() {
         return id;
     }
 
-    public void setId(int id)
-    {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public Status getStatus()
-    {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(Status status)
-    {
+    public void setStatus(Status status) {
         this.status = status;
     }
 }

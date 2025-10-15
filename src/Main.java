@@ -8,13 +8,11 @@ import model.Task;
 import java.util.ArrayList;
 
 public class Main {
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         runTest();
     }
 
-    public static void runTest()
-    {
+    public static void runTest() {
         TaskManager manager = new InMemoryTaskManager();
 
         Task task = new Task();
@@ -89,79 +87,65 @@ public class Main {
         printTasks(manager);
     }
 
-    public static void createTask(TaskManager manager, Task task)
-    {
+    public static void createTask(TaskManager manager, Task task) {
         Task newTask = manager.createTask(task);
         System.out.println("\nЗадача создана с ID: " + newTask.getId());
     }
 
-    public static Epic createEpic(TaskManager manager, Epic epic)
-    {
+    public static Epic createEpic(TaskManager manager, Epic epic) {
         Epic newEpic = manager.createEpic(epic);
         System.out.println("\nЭпик создан с id: " + newEpic.getId());
         return newEpic;
     }
 
-    public static void createSubtask(TaskManager manager, Subtask subtask)
-    {
+    public static void createSubtask(TaskManager manager, Subtask subtask) {
         Subtask newSubtask = manager.createSubtask(subtask);
         System.out.println("\nПодзадача создана с id: " + newSubtask.getId() + ", относится к эпику с id: " +
                 newSubtask.getEpicId());
     }
 
-    public static void updateTaskById(TaskManager manager, Task task)
-    {
+    public static void updateTaskById(TaskManager manager, Task task) {
         manager.updateTaskById(task);
     }
 
-    public static void updateEpicById(TaskManager manager, Epic epic)
-    {
+    public static void updateEpicById(TaskManager manager, Epic epic) {
         manager.updateEpicById(epic);
     }
 
-    public static void updateSubtaskById(TaskManager manager, Subtask subtask)
-    {
+    public static void updateSubtaskById(TaskManager manager, Subtask subtask) {
         manager.updateSubtaskById(subtask);
     }
 
-    public static ArrayList<Subtask> getAllSubtasksByEpic(TaskManager manager, int epicId)
-    {
+    public static ArrayList<Subtask> getAllSubtasksByEpic(TaskManager manager, int epicId) {
         return manager.getAllSubtasksByEpic(epicId);
     }
 
-    public static void deleteTaskById(TaskManager manager, int id)
-    {
+    public static void deleteTaskById(TaskManager manager, int id) {
         manager.deleteTaskById(id);
     }
 
-    public static void deleteEpicById(TaskManager manager, int id)
-    {
+    public static void deleteEpicById(TaskManager manager, int id) {
         manager.deleteEpicById(id);
     }
 
-    public static void deleteSubtaskById(TaskManager manager, int id)
-    {
+    public static void deleteSubtaskById(TaskManager manager, int id) {
         manager.deleteSubtaskById(id);
     }
 
-    public static void deleteAllTasks(TaskManager manager)
-    {
+    public static void deleteAllTasks(TaskManager manager) {
         manager.deleteAllTasks();
     }
 
-    public static void deleteAllEpics(TaskManager manager)
-    {
+    public static void deleteAllEpics(TaskManager manager) {
         manager.deleteAllEpics();
     }
 
-    public static void deleteAllSubtasks(TaskManager manager)
-    {
+    public static void deleteAllSubtasks(TaskManager manager) {
         manager.deleteAllSubtasks();
     }
 
 
-    public static void printTasks(TaskManager manager)
-    {
+    public static void printTasks(TaskManager manager) {
         System.out.println("Список дел: ");
         System.out.println("Задачи: " + manager.getAllTasks());
         System.out.println("Эпики с подзадачами: ");
