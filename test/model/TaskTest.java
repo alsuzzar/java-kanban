@@ -4,10 +4,12 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class TaskTest {
+class TaskTest
+{
 
     @Test
-    void shouldBeEqualIfAllFieldsAreEqual() {
+    void shouldBeEqualIfAllFieldsAreEqual()
+    {
         Task task1 = new Task();
         task1.setName("Test");
         task1.setDescription("Test Description");

@@ -1,14 +1,17 @@
 package model;
 
-public class Subtask extends Task {
+public class Subtask extends Task
+{
     private int epicId;
 
-    public Subtask() {
+    public Subtask()
+    {
         super();
     }
 
 
-    public Subtask(Subtask otherSubtask) {
+    public Subtask(Subtask otherSubtask)
+    {
         this.id = otherSubtask.id;
         this.name = otherSubtask.name;
         this.description = otherSubtask.description;
@@ -16,11 +19,13 @@ public class Subtask extends Task {
         this.epicId = otherSubtask.epicId;
     }
 
-    public int getEpicId() {
+    public int getEpicId()
+    {
         return epicId;
     }
 
-    public void setEpicId(int epicId) {
+    public void setEpicId(int epicId)
+    {
         this.epicId = epicId;
     }
 }
