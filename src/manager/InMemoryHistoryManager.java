@@ -17,12 +17,10 @@ public class InMemoryHistoryManager implements HistoryManager {
 
     @Override
     public void addToHistory(Task task) {
-        if (task == null)
-        {
+        if (task == null) {
             return;
         }
-        if (historyMap.containsKey(task.getId()))
-        {
+        if (historyMap.containsKey(task.getId())) {
             removeNode(historyMap.get(task.getId()));
         }
         Node node = addNode(task);
@@ -33,8 +31,7 @@ public class InMemoryHistoryManager implements HistoryManager {
     public ArrayList<Task> getHistory() {
         ArrayList<Task> historyList = new ArrayList<>();
         Node current = head;
-        while (current != null)
-        {
+        while (current != null) {
             historyList.add(current.task);
             current = current.next;
         }
@@ -43,12 +40,10 @@ public class InMemoryHistoryManager implements HistoryManager {
 
     public Node addNode(Task task) {
         Node newNode = new Node(task);
-        if (head == null && tail == null)
-        {
+        if (head == null && tail == null) {
             head = newNode;
             tail = newNode;
-        } else
-        {
+        } else {
             tail.next = newNode;
             newNode.prev = tail;
             tail = newNode;
@@ -59,25 +54,20 @@ public class InMemoryHistoryManager implements HistoryManager {
     @Override
     public void removeFromHistory(int id) {
         Node node = historyMap.get(id);
-        if (node != null)
-        {
+        if (node != null) {
             removeNode(node);
         }
     }
 
     public void removeNode(Node node) {
-        if (node.prev != null)
-        {
+        if (node.prev != null) {
             node.prev.next = node.next;
-        } else
-        {
+        } else {
             head = node.next;
         }
-        if (node.next != null)
-        {
+        if (node.next != null) {
             node.next.prev = node.prev;
-        } else
-        {
+        } else {
             tail = node.prev;
         }
         historyMap.remove(node.task.getId());

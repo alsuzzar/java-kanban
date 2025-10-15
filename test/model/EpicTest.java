@@ -7,8 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class EpicTest {
 
     @Test
-    void shouldBeEqualIfAllFieldsAreEqual()
-    {
+    void shouldBeEqualIfAllFieldsAreEqual() {
         Epic epic1 = new Epic();
         epic1.setName("Test");
         epic1.setDescription("Test Description");

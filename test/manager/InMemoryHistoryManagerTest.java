@@ -16,14 +16,12 @@ class InMemoryHistoryManagerTest {
     HistoryManager testHistoryManager;
 
     @BeforeEach
-    void setUp()
-    {
+    void setUp() {
         testHistoryManager = new InMemoryHistoryManager();
     }
 
     @Test
-    void shouldAddToHistory()
-    {
+    void shouldAddToHistory() {
 
         Task task = new Task();
         task.setName("Test");
@@ -37,11 +35,9 @@ class InMemoryHistoryManagerTest {
     }
 
     @Test
-    void shouldReturnTasksinAddedOrder()
-    {
+    void shouldReturnTasksinAddedOrder() {
         ArrayList<Task> expectedList = new ArrayList<>();
-        for (int i = 0; i < 3; i++)
-        {
+        for (int i = 0; i < 3; i++) {
             Task task = new Task();
             task.setName("Test" + i);
             task.setDescription("Test Description" + i);
@@ -58,8 +54,7 @@ class InMemoryHistoryManagerTest {
     }
 
     @Test
-    void shouldRemovePreviouslyOpenedSameTask()
-    {
+    void shouldRemovePreviouslyOpenedSameTask() {
         ArrayList<Task> expectedList = new ArrayList<>();
         Task task1 = new Task();
         task1.setName("Test" + 1);
@@ -91,11 +86,9 @@ class InMemoryHistoryManagerTest {
     }
 
     @Test
-    void shouldRemoveTask()
-    {
+    void shouldRemoveTask() {
         ArrayList<Task> expectedList = new ArrayList<>();
-        for (int i = 0; i < 3; i++)
-        {
+        for (int i = 0; i < 3; i++) {
             Task task = new Task();
             task.setName("Test" + i);
             task.setDescription("Test Description" + i);
@@ -116,11 +109,9 @@ class InMemoryHistoryManagerTest {
     }
 
     @Test
-    void shouldKeepTasksOrderAfterRemove()
-    {
+    void shouldKeepTasksOrderAfterRemove() {
         ArrayList<Task> expectedList = new ArrayList<>();
-        for (int i = 0; i < 5; i++)
-        {
+        for (int i = 0; i < 5; i++) {
             Task task = new Task();
             task.setName("Test" + i);
             task.setDescription("Test Description" + i);

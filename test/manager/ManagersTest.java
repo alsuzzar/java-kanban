@@ -7,8 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ManagersTest {
 
     @Test
-    void shouldReturnNewTaskManager()
-    {
+    void shouldReturnNewTaskManager() {
         TaskManager testTaskManager = Managers.getDefault();
         assertNotNull(testTaskManager, "объект в утилитарном классе не должен возвращать null");
         assertTrue(testTaskManager instanceof InMemoryTaskManager,
@@ -16,8 +15,7 @@ class ManagersTest {
     }
 
     @Test
-    void shouldReturnNewHistoryManager()
-    {
+    void shouldReturnNewHistoryManager() {
         HistoryManager testHistoryManager = Managers.getDefaultHistory();
         assertNotNull(testHistoryManager, "объект в утилитарном классе не должен возвращать null");
         assertTrue(testHistoryManager instanceof InMemoryHistoryManager,

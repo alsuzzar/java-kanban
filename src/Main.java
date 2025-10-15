@@ -149,20 +149,15 @@ public class Main {
         System.out.println("Список дел: ");
         System.out.println("Задачи: " + manager.getAllTasks());
         System.out.println("Эпики с подзадачами: ");
-        for (Epic epic : manager.getAllEpics())
-        {
+        for (Epic epic : manager.getAllEpics()) {
             System.out.println("Эпик" + epic + "\nПодзадачи: ");
             ArrayList<Integer> subtaskIds = epic.getSubtaskIds();
-            for (int subtaskId : subtaskIds)
-            {
+            for (int subtaskId : subtaskIds) {
                 Subtask subtask = manager.getSubtaskById(subtaskId);
-                if (subtask != null)
-                {
+                if (subtask != null) {
                     System.out.println(subtask);
                 }
             }
         }
-
     }
-
 }
