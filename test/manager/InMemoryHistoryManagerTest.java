@@ -1,11 +1,12 @@
 package manager;
 
+import model.Epic;
 import model.Status;
+import model.Subtask;
 import model.Task;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,16 +23,15 @@ class InMemoryHistoryManagerTest {
 
     @Test
     void shouldAddToHistory() {
-
         Task task = new Task();
         task.setName("Test");
         task.setDescription("Test Description");
         task.setStatus(Status.NEW);
-
         testHistoryManager.addToHistory(task);
         final List<Task> historyList = testHistoryManager.getHistory();
         assertNotNull(historyList, "После добавления задачи, история не должна быть пустой.");
-        assertEquals(1, historyList.size(), "После добавления задачи, история не должна быть пустой.");
+        assertEquals(1, historyList.size(), "После добавления одной задачи, в истории должна появиться " +
+                "одна задача.");
     }
 
     @Test
@@ -50,7 +50,6 @@ class InMemoryHistoryManagerTest {
         assertEquals(3, historyList.size(), "Должно добавиться 3 задачи.");
         assertEquals(historyList, expectedList, "Списки задач должны совпадать по порядку");
         assertEquals(expectedList.size(), historyList.size(), "Размеры списков должны совпадать");
-
     }
 
     @Test

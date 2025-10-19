@@ -171,4 +171,93 @@ class InMemoryTaskManagerTest {
         assertEquals(Status.NEW, fromHistory.getStatus(), "Статус должен быть прежним");
     }
 
+    @Test
+    void shouldRemoveAllTasksFromHistory() {
+        for (int i = 0; i < 5; i++) {
+            Task task = new Task();
+            task.setName("Test" + i);
+            task.setDescription("Test Description" + i);
+            task.setStatus(Status.NEW);
+            testTaskManager.createTask(task);
+            testTaskManager.getTaskById(task.getId());
+        }
+        testTaskManager.deleteAllTasks();
+        final List<Task> historyList = testTaskManager.getHistory();
+        assertTrue(historyList.isEmpty(), "После удаления всех задач история должна быть пустой.");
+    }
+
+    @Test
+    void shouldRemoveAllEpicsAndTheirSubtasksFromHistory() {
+        for (int i = 0; i < 5; i++) {
+            Task task = new Task();
+            task.setName("Test" + i);
+            task.setDescription("Test Description" + i);
+            task.setStatus(Status.NEW);
+            testTaskManager.createTask(task);
+            testTaskManager.getTaskById(task.getId());
+        }
+        List<Epic> epics = new ArrayList<>();
+        for (int i = 0; i < 2; i++) {
+            Epic epic = new Epic();
+            epic.setName("Test" + i);
+            epic.setDescription("Test Description" + i);
+            epic.setStatus(Status.NEW);
+            testTaskManager.createEpic(epic);
+            testTaskManager.getEpicById(epic.getId());
+            epics.add(epic);
+        }
+        for (Epic epic : epics) {
+            for (int j = 0; j < 2; j++) {
+                Subtask subtask = new Subtask();
+                subtask.setName("Subtask" + j + "_Epic" + epic.getId());
+                subtask.setDescription("Test Description" + j);
+                subtask.setStatus(Status.NEW);
+                subtask.setEpicId(epic.getId());
+                testTaskManager.createSubtask(subtask);
+                testTaskManager.getSubtaskById(subtask.getId());
+            }
+        }
+        final List<Task> historyList = testTaskManager.getHistory();
+        assertEquals(11, historyList.size(), "История перед удалением должна содержать все задачи, " +
+                "эпики и сабтаски");
+        testTaskManager.deleteAllEpics();
+        List<Task> historyAfterDeletion = testTaskManager.getHistory();
+        assertEquals(5, historyAfterDeletion.size(), "После удаления всех эпиков, должно остаться 5 тасков");
+    }
+
+    @Test
+    void shouldRemoveAllSubtasksFromHistory() {
+        for (int i = 0; i < 5; i++) {
+            Task task = new Task();
+            task.setName("Test" + i);
+            task.setDescription("Test Description" + i);
+            task.setStatus(Status.NEW);
+            testTaskManager.createTask(task);
+            testTaskManager.getTaskById(task.getId());
+        }
+        List<Epic> epics = new ArrayList<>();
+        for (int i = 0; i < 2; i++) {
+            Epic epic = new Epic();
+            epic.setName("Test" + i);
+            epic.setDescription("Test Description" + i);
+            epic.setStatus(Status.NEW);
+            testTaskManager.createEpic(epic);
+            testTaskManager.getEpicById(epic.getId());
+            epics.add(epic);
+        }
+        for (Epic epic : epics) {
+            for (int j = 0; j < 2; j++) {
+                Subtask subtask = new Subtask();
+                subtask.setName("Subtask" + j + "_Epic" + epic.getId());
+                subtask.setDescription("Test Description" + j);
+                subtask.setStatus(Status.NEW);
+                subtask.setEpicId(epic.getId());
+                testTaskManager.createSubtask(subtask);
+                testTaskManager.getSubtaskById(subtask.getId());
+            }
+        }
+        testTaskManager.deleteAllSubtasks();
+        final List<Task> historyList = testTaskManager.getHistory();
+        assertEquals(7, historyList.size(), "После удаления сабтасков, должно остаться 7 задач");
+    }
 }
