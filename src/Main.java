@@ -6,85 +6,86 @@ import model.Subtask;
 import model.Task;
 
 import java.util.ArrayList;
+
 public class Main {
     public static void main(String[] args) {
-    runTest();
-}
+        runTest();
+    }
 
-public static void runTest() {
-    TaskManager manager = new InMemoryTaskManager();
+    public static void runTest() {
+        TaskManager manager = new InMemoryTaskManager();
 
-    Task task = new Task();
-    task.setName("Затопить печь");
-    task.setDescription("Подкинуть дров и зажечь");
-    task.setStatus(Status.NEW);
-    createTask(manager, task);
+        Task task = new Task();
+        task.setName("Затопить печь");
+        task.setDescription("Подкинуть дров и зажечь");
+        task.setStatus(Status.NEW);
+        createTask(manager, task);
 
-    Task task2 = new Task();
-    task2.setName("Наколоть дров");
-    task2.setDescription("В лесу");
-    task2.setStatus(Status.NEW);
-    createTask(manager, task2);
+        Task task2 = new Task();
+        task2.setName("Наколоть дров");
+        task2.setDescription("В лесу");
+        task2.setStatus(Status.NEW);
+        createTask(manager, task2);
 
-    Epic epic = new Epic();
-    epic.setName("Испечь пирог");
-    epic.setDescription("Сметанник");
-    epic.setStatus(Status.NEW);
-    createEpic(manager, epic);
+        Epic epic = new Epic();
+        epic.setName("Испечь пирог");
+        epic.setDescription("Сметанник");
+        epic.setStatus(Status.NEW);
+        createEpic(manager, epic);
 
-    Subtask subtask = new Subtask();
-    subtask.setName("Поставить тесто");
-    subtask.setDescription("См. рецепт");
-    subtask.setStatus(Status.NEW);
-    subtask.setEpicId(epic.getId());
-    createSubtask(manager, subtask);
+        Subtask subtask = new Subtask();
+        subtask.setName("Поставить тесто");
+        subtask.setDescription("См. рецепт");
+        subtask.setStatus(Status.NEW);
+        subtask.setEpicId(epic.getId());
+        createSubtask(manager, subtask);
 
-    Subtask subtask2 = new Subtask();
-    subtask2.setName("Приготовить начинку");
-    subtask2.setDescription("См. рецепт начинки");
-    subtask2.setStatus(Status.NEW);
-    subtask2.setEpicId(epic.getId());
-    createSubtask(manager, subtask2);
+        Subtask subtask2 = new Subtask();
+        subtask2.setName("Приготовить начинку");
+        subtask2.setDescription("См. рецепт начинки");
+        subtask2.setStatus(Status.NEW);
+        subtask2.setEpicId(epic.getId());
+        createSubtask(manager, subtask2);
 
-    Epic epic2 = new Epic();
-    epic2.setName("Загрузить посудомойку");
-    epic2.setDescription("Вечером");
-    epic2.setStatus(Status.NEW);
-    createEpic(manager, epic2);
+        Epic epic2 = new Epic();
+        epic2.setName("Загрузить посудомойку");
+        epic2.setDescription("Вечером");
+        epic2.setStatus(Status.NEW);
+        createEpic(manager, epic2);
 
-    Subtask subtask3 = new Subtask();
-    subtask3.setName("Разобрать значала чистую");
-    subtask3.setDescription("попросить дочь");
-    subtask3.setStatus(Status.NEW);
-    subtask3.setEpicId(epic2.getId());
-    createSubtask(manager, subtask3);
+        Subtask subtask3 = new Subtask();
+        subtask3.setName("Разобрать значала чистую");
+        subtask3.setDescription("попросить дочь");
+        subtask3.setStatus(Status.NEW);
+        subtask3.setEpicId(epic2.getId());
+        createSubtask(manager, subtask3);
 
-    printTasks(manager);
+        printTasks(manager);
 
 
-    task.setStatus(Status.DONE);
-    updateTaskById(manager, task);
+        task.setStatus(Status.DONE);
+        updateTaskById(manager, task);
 
-    task2.setStatus(Status.DONE);
-    updateTaskById(manager, task2);
+        task2.setStatus(Status.DONE);
+        updateTaskById(manager, task2);
 
-    subtask.setStatus(Status.DONE);
-    updateSubtaskById(manager, subtask);
+        subtask.setStatus(Status.DONE);
+        updateSubtaskById(manager, subtask);
 
-    subtask2.setStatus(Status.DONE);
-    updateSubtaskById(manager, subtask2);
+        subtask2.setStatus(Status.DONE);
+        updateSubtaskById(manager, subtask2);
 
-    subtask3.setStatus(Status.IN_PROGRESS);
-    updateSubtaskById(manager, subtask3);
+        subtask3.setStatus(Status.IN_PROGRESS);
+        updateSubtaskById(manager, subtask3);
 
-    printTasks(manager);
-    System.out.println("\nПодзадачи для эпика 3: " + getAllSubtasksByEpic(manager,3));
-    deleteTaskById(manager,1);
-    System.out.println("\nУдалена задача с ID: 1");
-    deleteEpicById(manager,3);
-    System.out.println("\nУдален эпик с ID: 3");
-    printTasks(manager);
-}
+        printTasks(manager);
+        System.out.println("\nПодзадачи для эпика 3: " + getAllSubtasksByEpic(manager, 3));
+        deleteTaskById(manager, 1);
+        System.out.println("\nУдалена задача с ID: 1");
+        deleteEpicById(manager, 3);
+        System.out.println("\nУдален эпик с ID: 3");
+        printTasks(manager);
+    }
 
     public static void createTask(TaskManager manager, Task task) {
         Task newTask = manager.createTask(task);
@@ -119,15 +120,15 @@ public static void runTest() {
         return manager.getAllSubtasksByEpic(epicId);
     }
 
-    public static void deleteTaskById(TaskManager manager,int id) {
+    public static void deleteTaskById(TaskManager manager, int id) {
         manager.deleteTaskById(id);
     }
 
-    public static void deleteEpicById(TaskManager manager,int id) {
+    public static void deleteEpicById(TaskManager manager, int id) {
         manager.deleteEpicById(id);
     }
 
-    public static void deleteSubtaskById(TaskManager manager,int id) {
+    public static void deleteSubtaskById(TaskManager manager, int id) {
         manager.deleteSubtaskById(id);
     }
 
@@ -158,7 +159,5 @@ public static void runTest() {
                 }
             }
         }
-
     }
-
 }

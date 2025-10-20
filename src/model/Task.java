@@ -43,7 +43,9 @@ public class Task {
         return Objects.hash(name, description, id, status);
     }
 
-    public String getName() { return name; }
+    public String getName() {
+        return name;
+    }
 
     public void setName(String name) {
         this.name = name;

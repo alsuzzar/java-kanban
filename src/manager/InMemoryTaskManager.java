@@ -130,17 +130,29 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void deleteAllTasks() {
+        List<Integer> taskKeySet = new ArrayList<>(allTasks.keySet());
+        for (Integer id : taskKeySet) {
+            historyManager.removeFromHistory(id);
+        }
         allTasks.clear();
     }
 
     @Override
     public void deleteAllEpics() {
-        allEpics.clear();
+        List<Integer> epicKeySet = new ArrayList<>(allEpics.keySet());
+        for (Integer id : epicKeySet) {
+            historyManager.removeFromHistory(id);
+        }
         deleteAllSubtasks();
+        allEpics.clear();
     }
 
     @Override
     public void deleteAllSubtasks() {
+        List<Integer> subtaskKeySet = new ArrayList<>(allSubtasks.keySet());
+        for (Integer id : subtaskKeySet) {
+            historyManager.removeFromHistory(id);
+        }
         allSubtasks.clear();
         for (Epic epic : allEpics.values()) {
             epic.getSubtaskIds().clear();
@@ -150,18 +162,19 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void deleteTaskById(int id) {
-            allTasks.remove(id);
+        allTasks.remove(id);
+        historyManager.removeFromHistory(id);
     }
 
     @Override
     public void deleteEpicById(int id) {
         Epic epic = allEpics.get(id);
-        ArrayList<Subtask>subtasksToRemove = getAllSubtasksByEpic(id);
+        ArrayList<Subtask> subtasksToRemove = getAllSubtasksByEpic(id);
         for (Subtask subtask : subtasksToRemove) {
-                allSubtasks.remove(subtask.getId());
-            }
+            allSubtasks.remove(subtask.getId());
+        }
         allEpics.remove(id);
-
+        historyManager.removeFromHistory(id);
     }
 
     @Override
@@ -170,6 +183,7 @@ public class InMemoryTaskManager implements TaskManager {
         int epicId = subtask.getEpicId();
         allSubtasks.remove(id);
         updateEpicStatus(epicId);
+        historyManager.removeFromHistory(id);
     }
 
     @Override
@@ -201,12 +215,15 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public ArrayList<Subtask> getAllSubtasksByEpic(int epicId) {
         ArrayList<Subtask> allSubtasksByEpic = new ArrayList<>();
-
-        for (Subtask subtask : allSubtasks.values()) {
-                if (subtask.getEpicId() == epicId) {
+        Epic epic = allEpics.get(epicId);
+        if (epic != null) {
+            for (Integer subtaskId : epic.getSubtaskIds()) {
+                Subtask subtask = allSubtasks.get(subtaskId);
+                if (subtask != null) {
                     allSubtasksByEpic.add(subtask);
                 }
             }
+        }
         return allSubtasksByEpic;
     }
 
@@ -215,36 +232,37 @@ public class InMemoryTaskManager implements TaskManager {
         if (epic == null) {
             System.out.println("\nЗадача с ID " + epicId + " не найдена.");
             return;
-            }
-            ArrayList<Subtask> allSubtasksByEpic = getAllSubtasksByEpic(epicId);
-            Status statusEpic;
-            boolean allNew = true;
-            boolean allDone = true;
+        }
+        ArrayList<Subtask> allSubtasksByEpic = getAllSubtasksByEpic(epicId);
+        Status statusEpic;
+        boolean allNew = true;
+        boolean allDone = true;
 
-            if (allSubtasksByEpic.isEmpty()) {
-                epic.setStatus(Status.NEW);
+        if (allSubtasksByEpic.isEmpty()) {
+            epic.setStatus(Status.NEW);
+            return;
+        }
+
+        for (Subtask sub : allSubtasksByEpic) {
+            if (sub.getStatus() == Status.IN_PROGRESS) {
+                epic.setStatus(Status.IN_PROGRESS);
                 return;
             }
-
-            for (Subtask sub : allSubtasksByEpic) {
-                if (sub.getStatus() == Status.IN_PROGRESS) {
-                    epic.setStatus(Status.IN_PROGRESS);
-                    return;                }
-                if (sub.getStatus() != Status.NEW) {
-                    allNew = false;
-                }
-                if (sub.getStatus() != Status.DONE) {
-                    allDone = false;
-                }
+            if (sub.getStatus() != Status.NEW) {
+                allNew = false;
             }
-            if (allNew) {
-                statusEpic = Status.NEW;
-            } else if (allDone) {
-                statusEpic = Status.DONE;
-            } else {
-                statusEpic = Status.IN_PROGRESS;
+            if (sub.getStatus() != Status.DONE) {
+                allDone = false;
             }
-            epic.setStatus(statusEpic);
         }
+        if (allNew) {
+            statusEpic = Status.NEW;
+        } else if (allDone) {
+            statusEpic = Status.DONE;
+        } else {
+            statusEpic = Status.IN_PROGRESS;
+        }
+        epic.setStatus(statusEpic);
     }
+}
 

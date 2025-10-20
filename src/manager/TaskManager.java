@@ -10,6 +10,7 @@ import java.util.List;
 public interface TaskManager {
 
     Task createTaskWithManualId(Task task);
+
     Task createTask(Task task);
 
     Epic createEpic(Epic epic);
