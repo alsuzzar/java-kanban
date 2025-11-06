@@ -16,6 +16,7 @@ public class Epic extends Task {
         this.description = otherEpic.description;
         this.status = otherEpic.status;
         this.subtaskIds = new ArrayList<>(otherEpic.subtaskIds);
+        this.type = otherEpic.type;
     }
 
     public ArrayList<Integer> getSubtaskIds() {

@@ -7,6 +7,7 @@ public class Task {
     protected String description;
     protected int id;
     protected Status status;
+    protected Type type;
 
     public Task() {
     }
@@ -16,7 +17,7 @@ public class Task {
         this.name = otherTask.name;
         this.description = otherTask.description;
         this.status = otherTask.status;
-
+        this.type = otherTask.type;
     }
 
     @Override
@@ -26,6 +27,7 @@ public class Task {
                 ", description= '" + description + '\'' +
                 ", id= " + id +
                 ", status= " + status +
+                ", type=" + type +
                 "}";
     }
 
@@ -73,6 +75,14 @@ public class Task {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
     }
 }
 

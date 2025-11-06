@@ -2,6 +2,8 @@ package manager;
 
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class ManagersTest {
@@ -22,4 +24,12 @@ class ManagersTest {
                 "Ожидался InMemoryHistoryManager");
     }
 
+    @Test
+    void shouldReturnNewFileBAckedTaskManager() {
+        FileBackedTaskManager testFileBackedTaskManager = Managers.getDefaultFileBacked
+                (new File("test.csv"));
+        assertNotNull(testFileBackedTaskManager, "объект в утилитарном классе не должен возвращать null");
+        assertTrue(testFileBackedTaskManager instanceof FileBackedTaskManager,
+                "Ожидался FileBackedTaskManager");
+    }
 }
