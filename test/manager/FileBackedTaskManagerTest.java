@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+import static model.Type.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class FileBackedTaskManagerTest {
@@ -32,26 +33,30 @@ public class FileBackedTaskManagerTest {
             testFileBackedTaskManager = new FileBackedTaskManager(tempFile);
 
             task = new Task();
-            task.setName("Test");
+            task.setName("TestTask");
+            task.setType(TASK);
             task.setDescription("Test Description");
             task.setStatus(Status.NEW);
 
             int taskId = testFileBackedTaskManager.createTask(task).getId();
 
             epic = new Epic();
-            epic.setName("Test");
+            epic.setName("TestEpic");
+            epic.setType(EPIC);
             epic.setDescription("Test Description");
             epic.setStatus(Status.NEW);
             int epicId = testFileBackedTaskManager.createEpic(epic).getId();
 
             subtask = new Subtask();
-            subtask.setName("Test");
+            subtask.setName("TestSubtask");
+            subtask.setType(SUBTASK);
             subtask.setDescription("Test Description");
             subtask.setStatus(Status.NEW);
             subtask.setEpicId(epicId);
 
             subtask1 = new Subtask();
-            subtask1.setName("Test");
+            subtask1.setName("TestSubtask1");
+            subtask1.setType(SUBTASK);
             subtask1.setDescription("Test Description");
             subtask1.setStatus(Status.NEW);
             subtask1.setEpicId(epicId);
