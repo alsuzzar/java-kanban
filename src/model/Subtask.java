@@ -14,8 +14,6 @@ public class Subtask extends Task {
         this.description = otherSubtask.description;
         this.status = otherSubtask.status;
         this.epicId = otherSubtask.epicId;
-        this.type = otherSubtask.type;
-
     }
 
     public int getEpicId() {
@@ -24,5 +22,10 @@ public class Subtask extends Task {
 
     public void setEpicId(int epicId) {
         this.epicId = epicId;
+    }
+
+    @Override
+    public Type getType() {
+        return Type.SUBTASK;
     }
 }

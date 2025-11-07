@@ -11,15 +11,12 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 
-import static model.Type.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class FileBackedTaskManagerTest {
     FileBackedTaskManager testFileBackedTaskManager;
     File tempFile;
-    Path testFilePath;
     private Task task;
     private Epic epic;
     private Subtask subtask;
@@ -31,10 +28,10 @@ public class FileBackedTaskManagerTest {
         try {
             tempFile = File.createTempFile("test", ".csv");
             testFileBackedTaskManager = new FileBackedTaskManager(tempFile);
+            System.out.println("Временный файл: " + tempFile.getAbsolutePath());
 
             task = new Task();
             task.setName("TestTask");
-            task.setType(TASK);
             task.setDescription("Test Description");
             task.setStatus(Status.NEW);
 
@@ -42,21 +39,18 @@ public class FileBackedTaskManagerTest {
 
             epic = new Epic();
             epic.setName("TestEpic");
-            epic.setType(EPIC);
             epic.setDescription("Test Description");
             epic.setStatus(Status.NEW);
             int epicId = testFileBackedTaskManager.createEpic(epic).getId();
 
             subtask = new Subtask();
             subtask.setName("TestSubtask");
-            subtask.setType(SUBTASK);
             subtask.setDescription("Test Description");
             subtask.setStatus(Status.NEW);
             subtask.setEpicId(epicId);
 
             subtask1 = new Subtask();
             subtask1.setName("TestSubtask1");
-            subtask1.setType(SUBTASK);
             subtask1.setDescription("Test Description");
             subtask1.setStatus(Status.NEW);
             subtask1.setEpicId(epicId);

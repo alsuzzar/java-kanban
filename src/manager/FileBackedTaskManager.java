@@ -15,145 +15,124 @@ import java.util.List;
 
 public class FileBackedTaskManager extends InMemoryTaskManager {
 
-    protected File file = new File("data.csv");
+    protected File file;
 
     public FileBackedTaskManager(File file) {
         super();
         this.file = file;
     }
 
+    public FileBackedTaskManager() {
+        this(new File("data.csv"));
+    }
+
     @Override
     public Task createTaskWithManualId(Task task) {
         Task createdTask = super.createTaskWithManualId(task);
-        try {
-            save();
-        } catch (ManagerSaveException e) {
-            throw new RuntimeException(e);
-        }
+        save();
         return createdTask;
+    }
+
+    @Override
+    public Epic createEpicWithManualId(Epic epic) {
+        Epic createdEpic = super.createEpicWithManualId(epic);
+        save();
+        return createdEpic;
+    }
+
+    @Override
+    public Subtask createSubtaskWithManualId(Subtask subtask) {
+        Subtask createdSubtask = super.createSubtaskWithManualId(subtask);
+        save();
+        return createdSubtask;
     }
 
     @Override
     public Task createTask(Task task) {
         Task createdTask = super.createTask(task);
-        try {
-            save();
-        } catch (ManagerSaveException e) {
-            throw new RuntimeException(e);
-        }
+        save();
         return createdTask;
     }
 
     @Override
     public Epic createEpic(Epic epic) {
         Epic createdEpic = super.createEpic(epic);
-        try {
-            save();
-        } catch (ManagerSaveException e) {
-            throw new RuntimeException(e);
-        }
+        save();
         return createdEpic;
     }
 
     @Override
     public Subtask createSubtask(Subtask subtask) {
         Subtask createdSubtask = super.createSubtask(subtask);
-        try {
-            save();
-        } catch (ManagerSaveException e) {
-            throw new RuntimeException(e);
-        }
+        save();
         return createdSubtask;
     }
+
+    private void addTaskWithoutSave(Task task) {
+        super.createTaskWithManualId(task);
+    }
+
+    private void addEpicWithoutSave(Epic epic) {
+        super.createEpicWithManualId(epic);
+    }
+
+    private void addSubtaskWithoutSave(Subtask subtask) {
+        super.createSubtaskWithManualId(subtask);
+    }
+
 
     @Override
     public void updateTaskById(Task task) {
         super.updateTaskById(task);
-        try {
-            save();
-        } catch (ManagerSaveException e) {
-            throw new RuntimeException(e);
-        }
+        save();
     }
 
     @Override
     public void updateEpicById(Epic epic) {
         super.updateEpicById(epic);
-        try {
-            save();
-        } catch (ManagerSaveException e) {
-            throw new RuntimeException(e);
-        }
+        save();
     }
 
     @Override
     public void updateSubtaskById(Subtask subtask) {
         super.updateSubtaskById(subtask);
-        try {
-            save();
-        } catch (ManagerSaveException e) {
-            throw new RuntimeException(e);
-        }
+        save();
     }
 
     @Override
     public void deleteAllTasks() {
         super.deleteAllTasks();
-        try {
-            save();
-        } catch (ManagerSaveException e) {
-            throw new RuntimeException(e);
-        }
+        save();
     }
 
     @Override
     public void deleteAllEpics() {
         super.deleteAllEpics();
-        try {
-            save();
-        } catch (ManagerSaveException e) {
-            throw new RuntimeException(e);
-        }
+        save();
     }
 
     @Override
     public void deleteAllSubtasks() {
         super.deleteAllSubtasks();
-        try {
-            save();
-        } catch (ManagerSaveException e) {
-            throw new RuntimeException(e);
-        }
+        save();
     }
 
     @Override
     public void deleteTaskById(int id) {
         super.deleteTaskById(id);
-        try {
-            save();
-        } catch (ManagerSaveException e) {
-            throw new RuntimeException(e);
-        }
+        save();
     }
 
     @Override
     public void deleteEpicById(int id) {
         super.deleteEpicById(id);
-        try {
-            save();
-        } catch (ManagerSaveException e) {
-            throw new RuntimeException(e);
-        }
+        save();
     }
 
     @Override
     public void deleteSubtaskById(int id) {
         super.deleteSubtaskById(id);
-        try {
-            save();
-        } catch (ManagerSaveException e) {
-            throw new RuntimeException(e);
-        }
+        save();
     }
 
     void save() throws ManagerSaveException {
@@ -192,11 +171,11 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
                 Task task = manager.fromString(line);
 
                 if (task instanceof Epic) {
-                    manager.createEpic((Epic) task);
+                    manager.addEpicWithoutSave((Epic) task);
                 } else if (task instanceof Subtask) {
-                    manager.createSubtask((Subtask) task);
+                    manager.addSubtaskWithoutSave((Subtask) task);
                 } else if (task instanceof Task) {
-                    manager.createTask(task);
+                    manager.addTaskWithoutSave(task);
                 }
             }
         } catch (IOException e) {
@@ -221,7 +200,6 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
             task.setName(name);
             task.setStatus(status);
             task.setDescription(description);
-            task.setType(type);
             return task;
 
         } else if (type == Type.EPIC) {
@@ -230,7 +208,6 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
             epic.setName(name);
             epic.setStatus(status);
             epic.setDescription(description);
-            epic.setType(type);
             return epic;
 
         } else if (type == Type.SUBTASK) {
@@ -240,7 +217,6 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
             subtask.setName(name);
             subtask.setStatus(status);
             subtask.setDescription(description);
-            subtask.setType(type);
             subtask.setEpicId(epicId);
             return subtask;
         }

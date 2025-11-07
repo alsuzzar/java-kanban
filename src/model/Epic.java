@@ -16,7 +16,6 @@ public class Epic extends Task {
         this.description = otherEpic.description;
         this.status = otherEpic.status;
         this.subtaskIds = new ArrayList<>(otherEpic.subtaskIds);
-        this.type = otherEpic.type;
     }
 
     public ArrayList<Integer> getSubtaskIds() {
@@ -25,5 +24,10 @@ public class Epic extends Task {
 
     public void setSubtaskIds(ArrayList<Integer> subtaskIds) {
         this.subtaskIds = subtaskIds;
+    }
+
+    @Override
+    public Type getType() {
+        return Type.EPIC;
     }
 }
