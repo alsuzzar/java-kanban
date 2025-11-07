@@ -16,7 +16,6 @@ public class Task {
         this.name = otherTask.name;
         this.description = otherTask.description;
         this.status = otherTask.status;
-
     }
 
     @Override
@@ -26,6 +25,7 @@ public class Task {
                 ", description= '" + description + '\'' +
                 ", id= " + id +
                 ", status= " + status +
+                ", type=" + getType() +
                 "}";
     }
 
@@ -73,6 +73,10 @@ public class Task {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public Type getType() {
+        return Type.TASK;
     }
 }
 

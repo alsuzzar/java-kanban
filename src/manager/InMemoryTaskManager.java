@@ -31,6 +31,40 @@ public class InMemoryTaskManager implements TaskManager {
         return task;
     }
 
+    public Epic createEpicWithManualId(Epic epic) {
+        int idManualEpic = epic.getId();
+        allEpics.put(idManualEpic, epic);
+        if (idManualEpic >= taskCount) {
+            taskCount = idManualEpic + 1;
+        }
+        return epic;
+    }
+
+    public Subtask createSubtaskWithManualId(Subtask subtask) {
+        int idManualSubtask = subtask.getId();
+        int epicId = subtask.getEpicId();
+
+        Epic epic = allEpics.get(epicId);
+        if (epic == null) {
+            System.out.println("Эпик с ID " + epicId + " не найден.");
+            return null;
+        }
+
+        if (epicId == idManualSubtask) {
+            System.out.println("Subtask не может быть своим же эпиком");
+            return null;
+        }
+
+        allSubtasks.put(idManualSubtask, subtask);
+        if (idManualSubtask >= taskCount) {
+            taskCount = idManualSubtask + 1;
+        }
+        ArrayList<Integer> subtaskIds = epic.getSubtaskIds();
+        subtaskIds.add(idManualSubtask);
+        updateEpicStatus(epicId);
+        return subtask;
+    }
+
     @Override
     public Task createTask(Task task) {
         task.setId(generateId());
